@@ -47,7 +47,7 @@ if (!empty($_SESSION['active'])) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Vida Informatico</title>
+  <title>Software On Xtreme </title>
 
   <!-- Custom fonts for this template-->
   <link href="sistema/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -88,6 +88,8 @@ if (!empty($_SESSION['active'])) {
                     <input type="submit" value="Iniciar" class="btn btn-primary">
                     <hr>
                   </form>
+                  
+                  <a href="http://localhost:8080/asistencia/vistas/asistencia.php" class="btn btn-primary">Asistencia</a>
                   <hr>
                 </div>
               </div>

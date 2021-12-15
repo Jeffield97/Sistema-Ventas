@@ -61,6 +61,8 @@ class ApiProductos
     }
 
     
+
+
     function error($mensaje){
         echo json_encode(array('mensaje' => $mensaje)); 
     }

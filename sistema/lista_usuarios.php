@@ -1,71 +1,50 @@
 ﻿<?php include_once "includes/header.php"; ?>
 
+
 <!-- Begin Page Content -->
-<div class="container-fluid">
+<?php
+        $json = file_get_contents('http://localhost:8080/asistencia/API/testApi.php');
+        // $json=file_get_contents('http://localhost:8080/Sistema_venta_basico/sistema/api/productos.php');
+        $datos = json_decode($json, true);
+        //Comprobar si $datos es un array no esta vacio	
+        if (is_array($datos) && !empty($datos)) {
+            //$array = json_decode($json);
+            $items = $datos['users'];
 
-	<!-- Page Heading -->
-	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Usuarios</h1>
-		<?php if ($_SESSION['rol'] == 1) { ?>
-		<a href="registro_usuario.php" class="btn btn-primary">Nuevo</a>
-		<?php } ?>
-	</div>
-
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="table-responsive">
-				<table class="table table-striped table-bordered" id="table">
-					<thead class="thead-dark">
-						<tr>
-							<th>ID</th>
-							<th>NOMBRE</th>
-							<th>CORREO</th>
-							<th>USUARIO</th>
-							<th>DIRECCIÓN</th>
-							<?php if ($_SESSION['rol'] == 1) { ?>
-							<th>ACCIONES</th>
-							<?php }?>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						include "../conexion.php";
-
-						$query = mysqli_query($conexion, "SELECT u.idusuario, u.nombre, u.correo, u.usuario, r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol");
-						$result = mysqli_num_rows($query);
-						if ($result > 0) {
-							while ($data = mysqli_fetch_assoc($query)) { ?>
-								<tr>
-									<td><?php echo $data['idusuario']; ?></td>
-									<td><?php echo $data['nombre']; ?></td>
-									<td><?php echo $data['correo']; ?></td>
-									<td><?php echo $data['usuario']; ?></td>
-									<td><?php echo $data['rol']; ?></td>
-									<?php if ($_SESSION['rol'] == 1) { ?>
-									<td>
-										<a href="editar_usuario.php?id=<?php echo $data['idusuario']; ?>" class="btn btn-success"><i class='fas fa-edit'></i> Editar</a>
-										<form action="eliminar_usuario.php?id=<?php echo $data['idusuario']; ?>" method="post" class="confirmar d-inline">
-											<button class="btn btn-danger" type="submit"><i class='fas fa-trash-alt'></i> </button>
-										</form>
-									</td>
-									<?php } ?>
-								</tr>
-						<?php }
-						} ?>
-					</tbody>
-
-				</table>
-			</div>
-
-		</div>
-	</div>
+			//Mostrar los datos de $items   en una tabla
+			echo "<table class='table table-striped'>
+			<tr>
+			<th>ID</th>
+			<th>Nombre</th>
+			<th>Apellidos</th>
+			<th>Usuario</th>
+			<th>Email</th>
+			<th>Tipo de usuario</th>
+			
+			</tr>";
+			foreach ($items as $item) {
+				echo '<tr>
+				<td>'.$item['id'].'</td>
+				<td>' . $item['nombre'] . '</td>
+				<td>' . $item['apellidos'] . '</td>
+				<td>' . $item['login'] . '</td>
+				<td>' . $item['email'] . '</td>
+				<td>' . $item['idtipousuario'] . '</td>
+				</tr>';
+			}
+			echo "</table>";
+            //echo $items[0]['id'];
 
 
-</div>
+            /*foreach ($items as $item) {
+                echo $item ['codproducto'];
+            }*/
+        }
+        //echo $items;
+        ?>
 <!-- /.container-fluid -->
 
-</div>
+
 <!-- End of Main Content -->
 
 
-<?php include_once "includes/footer.php"; ?>
