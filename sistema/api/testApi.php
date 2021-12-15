@@ -15,10 +15,6 @@
         $api->getAll();
         echo $api->getAll();
         return $api->getAll();
-        //response file json
-       //echo json_decode($api->getAll(),true);
-        //http_response_code(400);
-        //return json_encode($api->getAll());
     }
     
 ?>
